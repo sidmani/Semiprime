@@ -64,7 +64,7 @@ public class SemiPrime{
         catch (IOException e)
         {}
         {
-            for(int i = 1000; i <= 9999; i++){
+            for(int i = 2; i <= 999; i++){
                 if(isSemi(BigInteger.valueOf(i))){
 
                     ArrayList a = primeFactors(i);
@@ -72,7 +72,7 @@ public class SemiPrime{
                     {
                         writer.print(i + ",");
                         writer.print(a.get(0) + "," + a.get(1) + " ");
-                        boolean b = Factorize.eq2(i, (Integer)(a.get(0)), (Integer)(a.get(1)));
+                        boolean b = Factorize.eq1(i, (Integer)(a.get(0)), (Integer)(a.get(1)));
                         if (b)
                         {
                             count_true++;

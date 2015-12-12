@@ -1,4 +1,4 @@
-public class Factorize
+ public class Factorize
 {
     public static void main(int num)
     {
@@ -22,7 +22,7 @@ public class Factorize
         int d = fact2%10;
 
        // return (num%100)/10 == (b*d/10 + a*d%10 + b*c%10)%10;
-        return (num%100)/10 == (b*d/10 + a*d + b*c)%10;
+        return (num%100)/10 == (b*d/10 + a*d + b*c%10)%10;
     }
 
     public static boolean eq2(int num, int fact1, int fact2)
@@ -31,16 +31,23 @@ public class Factorize
         int b = fact1%10;
         int c = fact2/10;
         int d = fact2%10;
-
-       // return (num%1000)/100==(((b*d)/10 + a*d%10 + b*c%10)/10 + a*d/10+a*c%10)%10;
-       //return (num%1000)/100==((b*d/10 + a*d)/10 + (b*c/10 + a*c)%10)%10;
-       //return (num%1000)/100 == (((b*d)/10 + a*d)/10 + ((b*c)/10)%10 + (a*c)%10)%10;
-       return (num%1000)/100 == (((b*d/10)+ (a*d) + (b*c)%10)/10 + (b*c/10 + a*c))%10;
+        
+       return (num%1000)/100 == (((b*d/10)+ (a*d) + (b*c)%10)/10 + b*c/10 + a*c%10)%10;
     }
 
     public static int getDigit(int num, int digit)
     {
         return (int) ((num%(Math.pow(10, digit))) / Math.pow(10, digit-1));
+    }
+    
+     public static boolean eq3(int num, int fact1, int fact2)
+    {
+        int a = fact1/10;
+        int b = fact1%10;
+        int c = fact2/10;
+        int d = fact2%10;
+        
+       return (num%10000)/1000 == (((b*d/10)+ (a*d) + (b*c)%10)/10 + b*c/10 + a*c%10)/10; //not working
     }
 
     public static int[][] getFactors(int num)
