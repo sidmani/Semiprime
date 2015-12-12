@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.params=num
+comment0.target=void\ main(int)
+comment1.params=num\ fact1\ fact2
+comment1.target=boolean\ eq1(int,\ int,\ int)
+comment2.params=num\ fact1\ fact2
+comment2.target=boolean\ eq2(int,\ int,\ int)
+comment3.params=num\ digit
+comment3.target=int\ getDigit(int,\ int)
+comment4.params=num
+comment4.target=int[][]\ getFactors(int)
+numComments=5
