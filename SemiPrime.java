@@ -43,7 +43,7 @@ public class SemiPrime{
     public static ArrayList<Integer> primeFactors(long number) {
         ArrayList<Integer> primefactors = new ArrayList<Integer>();
         long copyOfInput = number;
-
+        long startTime = System.currentTimeMillis();
         for (int i = 2; i <= copyOfInput; i++) {
             if (copyOfInput % i == 0) {
                 primefactors.add(i); // prime factor
@@ -51,40 +51,41 @@ public class SemiPrime{
                 i--;
             }
         }
+
+        long stopTime = System.currentTimeMillis();
+        long elapsedTime = stopTime - startTime;
+        System.out.println(elapsedTime);
         return primefactors;
     }
 
     public static void main(String[] args){
+        long startTime = System.currentTimeMillis();
         PrintWriter writer = null;
         double count_true = 0;
         double count = 0;
-        try{
-            writer = new PrintWriter("/Users/Sid/Desktop/semi-primes with test eq1.txt", "UTF-8");
-        }
-        catch (IOException e)
-        {}
         {
-            for(int i = 2; i <= 999; i++){
+            for(int i = 1000; i <= 10000; i++){
                 if(isSemi(BigInteger.valueOf(i))){
 
                     ArrayList a = primeFactors(i);
                     if (a.size() == 2 && a.get(0).toString().length() == a.get(1).toString().length())
                     {
-                        writer.print(i + ",");
-                        writer.print(a.get(0) + "," + a.get(1) + " ");
-                        boolean b = Factorize.eq1(i, (Integer)(a.get(0)), (Integer)(a.get(1)));
-                        if (b)
-                        {
-                            count_true++;
-                        }
-                        writer.println(b);
-                        count++;
+                        System.out.print(i + ",");
+                        System.out.println(a.get(0) + "," + a.get(1) + " ");
+                        //  boolean b = Factorize.eq1(i, (Integer)(a.get(0)), (Integer)(a.get(1)));
+                        // if (b)
+                        //  {
+                        //    count_true++;
+                        //  }
+                        // writer.println(b);
+                        // count++;
                     }
                 }
             }
         }
-        writer.println(count_true/count);
-        writer.close();
+        long stopTime = System.currentTimeMillis();
+        long elapsedTime = stopTime - startTime;
+        System.out.println(elapsedTime + "ms");
 
     }
 }
