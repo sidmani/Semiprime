@@ -5,7 +5,7 @@ public class Factorize
     public static void test_speed()
     {
         long startTime = System.currentTimeMillis();
-        for (int i = 100000; i < 110000; i++)
+        for (int i = 0; i < 10000; i++)
         {
             main(i);
         }
@@ -16,7 +16,7 @@ public class Factorize
 
     public static void main(int num)
     {
-        System.out.println(getDigit(num, 4) + "" + getDigit(num, 3) + "" + getDigit(num, 2) + "" + getDigit(num, 1));
+        //System.out.println(getDigit(num, 4) + "" + getDigit(num, 3) + "" + getDigit(num, 2) + "" + getDigit(num, 1));
         int x0,x1,y0,y1;
         ArrayList<Point> possibleSolutions = new ArrayList<Point>();
         int[][] ones_factors = getFactors(num);
@@ -29,13 +29,15 @@ public class Factorize
             x0 = ones_factors[i][0];
             y0 = ones_factors[i][1];
             int k = (10 + getDigit(num, 2) - (x0*y0)/10)%10;
-            System.out.println(k +" = (" + y0 + "*x1 + " + x0 + "*y1)mod10");
+            //    System.out.println(k +" = (" + y0 + "*x1 + " + x0 + "*y1)mod10");
             int[][] additiveTable = getAdditiveTable(k);
             int[][] counterpartTable = getCounterpartTable(additiveTable, x0, y0);
+            // System.out.println(Arrays.deepToString(additiveTable));
+            // System.out.println(Arrays.deepToString(additiveTable));
             int test_digits = getDigit(num,3) + getDigit(num,4) * 10;
             for (int j = 0; j < 10; j++)
             {
-                if (Math.abs(counterpartTable[0][j] * counterpartTable[1][j] - test_digits) < 10)
+                if (Math.abs(counterpartTable[0][j] * counterpartTable[1][j] - test_digits) < 18) 
                 {
                     possibleSolutions.add(new Point(counterpartTable[0][j] * 10 + y0, counterpartTable[1][j] * 10 + x0));
                 }
@@ -43,12 +45,13 @@ public class Factorize
         }
         for (Point p:possibleSolutions)
         {
-            System.out.print("Possible solution: " + p.getX() + "*" + p.getY());
+            //    System.out.print("Possible solution: " + p.getX() + "*" + p.getY());
             if (p.getX() * p.getY() == num)
             {
-                System.out.print("[Actual solution]");
+                System.out.print("Possible solution: " + p.getX() + "*" + p.getY());
+                System.out.println("[Actual solution]");
             }
-            System.out.println();
+            //   System.out.println();
         }
 
     }
@@ -185,7 +188,7 @@ public class Factorize
                 case 1:
                 return 6;
                 case 3:
-                return 6;
+                return 2;
                 case 7:
                 return 8;
                 case 9:

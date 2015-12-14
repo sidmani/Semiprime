@@ -43,7 +43,7 @@ public class SemiPrime{
     public static ArrayList<Integer> primeFactors(long number) {
         ArrayList<Integer> primefactors = new ArrayList<Integer>();
         long copyOfInput = number;
-        long startTime = System.currentTimeMillis();
+     //   long startTime = System.currentTimeMillis();
         for (int i = 2; i <= copyOfInput; i++) {
             if (copyOfInput % i == 0) {
                 primefactors.add(i); // prime factor
@@ -52,9 +52,9 @@ public class SemiPrime{
             }
         }
 
-        long stopTime = System.currentTimeMillis();
-        long elapsedTime = stopTime - startTime;
-        System.out.println(elapsedTime);
+   //     long stopTime = System.currentTimeMillis();
+    //    long elapsedTime = stopTime - startTime;
+  //      System.out.println(elapsedTime);
         return primefactors;
     }
 
@@ -70,8 +70,8 @@ public class SemiPrime{
                     ArrayList a = primeFactors(i);
                     if (a.size() == 2 && a.get(0).toString().length() == a.get(1).toString().length())
                     {
-                        System.out.print(i + ",");
-                        System.out.println(a.get(0) + "," + a.get(1) + " ");
+                      //  System.out.print(i + ",");
+                      // System.out.println(a.get(0) + "," + a.get(1) + " ");
                         //  boolean b = Factorize.eq1(i, (Integer)(a.get(0)), (Integer)(a.get(1)));
                         // if (b)
                         //  {
