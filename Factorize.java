@@ -5,7 +5,7 @@ public class Factorize
     public static void test_speed()
     {
         long startTime = System.currentTimeMillis();
-        for (int i = 0; i < 10000; i++)
+        for (int i = 0; i < 1000000; i++)
         {
             main(i);
         }
@@ -17,8 +17,11 @@ public class Factorize
     public static void main(int num)
     {
         //System.out.println(getDigit(num, 4) + "" + getDigit(num, 3) + "" + getDigit(num, 2) + "" + getDigit(num, 1));
-        int x0,x1,y0,y1;
+        int x[] = new int[(new String("" + num)).length()];
+        int y[] = new int[(new String("" + num)).length()];
+        //int x0,x1,y0,y1;
         ArrayList<Point> possibleSolutions = new ArrayList<Point>();
+        int leftover;
         int[][] ones_factors = getFactors(num);
         if (ones_factors == null)
         {
@@ -26,34 +29,91 @@ public class Factorize
         }
         for (int i = 0; i < ones_factors.length; i++)
         {
-            x0 = ones_factors[i][0];
-            y0 = ones_factors[i][1];
-            int k = (10 + getDigit(num, 2) - (x0*y0)/10)%10;
-            //    System.out.println(k +" = (" + y0 + "*x1 + " + x0 + "*y1)mod10");
+            x[0] = ones_factors[i][0];
+            y[0] = ones_factors[i][1];
+            int k = (10 + getDigit(num, 2) - (x[0]*y[0])/10);
+            leftover = k / 10;
+            k = k % 10;
+            System.out.println(k +" = (" + y[0] + "*x1 + " + x[0] + "*y1)mod10");
             int[][] additiveTable = getAdditiveTable(k);
-            int[][] counterpartTable = getCounterpartTable(additiveTable, x0, y0);
+            int[][] counterpartTable = getCounterpartTable(additiveTable, x[0], y[0]);
             // System.out.println(Arrays.deepToString(additiveTable));
             // System.out.println(Arrays.deepToString(additiveTable));
             int test_digits = getDigit(num,3) + getDigit(num,4) * 10;
             for (int j = 0; j < 10; j++)
             {
-                if (Math.abs(counterpartTable[0][j] * counterpartTable[1][j] - test_digits) < 18) 
-                {
-                    possibleSolutions.add(new Point(counterpartTable[0][j] * 10 + y0, counterpartTable[1][j] * 10 + x0));
-                }
+                //if (Math.abs(counterpartTable[0][j] * counterpartTable[1][j] - test_digits) < 18) 
+                //{
+                possibleSolutions.add(new Point(counterpartTable[0][j] * 10 + y[0], counterpartTable[1][j] * 10 + x[0]));
+                //}
             }
         }
         for (Point p:possibleSolutions)
         {
-            //    System.out.print("Possible solution: " + p.getX() + "*" + p.getY());
+            System.out.print("Possible solution: " + p.getX() + "*" + p.getY() + " = ");
+            System.out.print(p.getX() * p.getY());
             if (p.getX() * p.getY() == num)
             {
-                System.out.print("Possible solution: " + p.getX() + "*" + p.getY());
-                System.out.println("[Actual solution]");
+                System.out.print("[Actual solution]");
             }
-            //   System.out.println();
+            System.out.println();
         }
+    }
 
+    public static int runTestIteration(int[] x, int[] y, int iteration, int previous_val, int curr_digit, int num)
+    {
+        int p = 0;
+        int r = y[0];
+        for (int i = 1; i < iteration-1; i++)
+        {
+            p+=(y[i] * x[iteration-i]);
+            r+=y[i];
+        }
+        p = p%10;
+        r = r/10;
+        int new_previous = (p+r+previous_val);
+        int k = getDigit(num, curr_digit) - (p+r);
+        int[][] additiveTable = getAdditiveTable(k);
+        int[][] counterpartTable = getCounterpartTable(additiveTable, x[0], y[0]);
+        for (int j = 0; j < 10; j++)
+        {
+            
+            if ((counterpartTable[0][j] * 10 + y[0]) * (counterpartTable[1][j] * 10 + x[0]) ==  getLastNDigits(num, curr_digit/2)
+            {
+                
+            }
+            
+        }
+        return -1;
+    }
+
+    public static int getLastNDigits(int num, int n)
+    {
+        return num % (int) Math.pow(10,n);
+    }
+
+    public static int arrayToNum(int[] a, int size)
+    {
+        int i, k = 0;
+        for (i = 0; i < size; i++)
+            k = 10 * k + a[i];
+        return k;
+    }
+
+    public static void test()
+    {
+        for (int i = 0; i<10; i++)
+        {
+            for (int j = 0; j < 10; j++)
+            {
+                int f = j*10 + 1;
+                int g = i*10 + 9;
+                if (f*g % 10 == 9)
+                {
+                    System.out.println(f*g);
+                }
+            }
+        }
     }
 
     public static boolean eq1(int num, int fact1, int fact2)
