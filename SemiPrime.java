@@ -61,18 +61,21 @@ public class SemiPrime{
     public static void main(String[] args){
         long startTime = System.currentTimeMillis();
         PrintWriter writer = null;
+        
         double count_true = 0;
         double count = 0;
+        try
         {
-            for(int i = 1000; i <= 10000; i++){
+            writer = new PrintWriter("/Users/Sid/Desktop/semiprimes_test2.txt");
+            for(int i = 100000; i <= 110000; i++){
                 if(isSemi(BigInteger.valueOf(i))){
 
                     ArrayList a = primeFactors(i);
                     if (a.size() == 2 && a.get(0).toString().length() == a.get(1).toString().length())
                     {
-                      //  System.out.print(i + ",");
-                      // System.out.println(a.get(0) + "," + a.get(1) + " ");
-                        //  boolean b = Factorize.eq1(i, (Integer)(a.get(0)), (Integer)(a.get(1)));
+                       writer.print(i + ",");
+                       writer.println(a.get(0) + "," + a.get(1) + " ");
+                         // boolean b = Factorize.eq1(i, (Integer)(a.get(0)), (Integer)(a.get(1)));
                         // if (b)
                         //  {
                         //    count_true++;
@@ -83,6 +86,10 @@ public class SemiPrime{
                 }
             }
         }
+        catch (IOException e)
+        {
+        }
+        writer.close();
         long stopTime = System.currentTimeMillis();
         long elapsedTime = stopTime - startTime;
         System.out.println(elapsedTime + "ms");
