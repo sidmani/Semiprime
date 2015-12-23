@@ -129,7 +129,7 @@ public class Factorize
             PrintWriter p = new PrintWriter("/Users/Sid/Desktop/eq_test.txt");
             p.println("Simplified equations: (assuming x and y have the same number of digits)");
             previous = "";
-            for (int i = 0; i < digits; i++)
+            for (int i = 0; i < digits-1; i++)
             {
                 String s = "";
                 for (int j = 0; j <= i; j++)
@@ -144,8 +144,10 @@ public class Factorize
                     s = s.substring(0, s.length() - 3);
                 if (i==digits-1)
                     p.println(getDigit_BI(x, i+1) + "= (" + s + ")");
+                else if (i==digits-2)
+                    p.println(getDigit_BI(x, i+1) + "= " + s + " - " + (10*getDigit_BI(x, i+2)));    
                 else
-                    p.println(getDigit_BI(x, i+1) + "= (" + s + ")%10");
+                    p.println(getDigit_BI(x, i+1) + "= (" + s + ")-10*c" + i);
                 previous = s;
             }
             p.close();
@@ -162,7 +164,7 @@ public class Factorize
 
     public static void test_BI()
     {
-        generate_equations(new BigInteger("5251"));
+        generate_equations(new BigInteger("6497"));
         //generate_equations(new BigInteger("25195908475657893494027183240048398571429282126204032027777137836043662020707595556264018525880784406918290641249515082189298559149176184502808489120072844992687392807287776735971418347270261896375014971824691165077613379859095700097330459748808428401797429100642458691817195118746121515172654632282216869987549182422433637259085141865462043576798423387184774447920739934236584823824281198163815010674810451660377306056201619676256133844143603833904414952634432190114657544454178424020924616515723350778707749817125772467962926386356373289912154831438167899885040445364023527381951378636564391212010397122822120720357"));
     }
 
@@ -206,27 +208,50 @@ public class Factorize
         return num % (int) Math.pow(10,n);
     }
 
+    public static void print_divisors()
+    {
+        for (int i = 0; i < 452; i++)
+        {
+            if (i%7==0 && i%10 == 1)
+            {
+                System.out.println(i);
+            }
+        }
+    }
+
+    public static void print_remainders()
+    {
+        try{
+            PrintWriter p = new PrintWriter("/Users/Sid/Desktop/remainders.txt");
+
+            
+            System.out.println(num);
+
+            int x1 = fact1/10;
+            int x0 = fact1%10;
+            int y1 = fact2/10;
+            int y0 = fact2%10;
+            ///   p.println(getDigit(num, 4) + " " + getDigit(num, 3) + " " +getDigit(num, 2) + " " +getDigit(num, 1) + " = " + fact1 + " * " + fact2 );
+            p.print(0 + " ");
+            p.print(getDigit(num, 4) + " ");
+            p.print((((x0*y1) + (x1*y0) + (((x0*y0) - getDigit(num,1))/10))-getDigit(num,2))/10 + " ");
+            p.println(((((x0*y0))-getDigit(num,1))/10) + " ");
+            ///   p.println("--------");
+
+            
+            p.close();
+        }     
+        catch (Exception e){
+            System.out.println("IO Error");
+        }
+    }
+
     public static int arrayToNum(int[] a, int size)
     {
         int i, k = 0;
         for (i = 0; i < size; i++)
             k = 10 * k + a[i];
         return k;
-    }
-
-    public static void test()
-    {
-        for (int i = 0; i<100; i++)
-        {
-            for (int j = 0; j < 100; j++)
-            {
-
-                if (i*j % 100 == 30)
-                {
-                    System.out.println(i + " * " + j + "=" + i*j);
-                }
-            }
-        }
     }
 
     public static boolean eq1(int num, int fact1, int fact2)
@@ -236,7 +261,6 @@ public class Factorize
         int c = fact2/10;
         int d = fact2%10;
 
-        // return (num%100)/10 == (b*d/10 + a*d%10 + b*c%10)%10;
         return (num%100)/10 == (b*d/10 + a*d + b*c%10)%10;
     }
 
