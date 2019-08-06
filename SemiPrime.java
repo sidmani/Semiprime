@@ -58,6 +58,21 @@ public class SemiPrime{
         return primefactors;
     }
 
+    public static ArrayList<Integer> primeFactors2(int num)
+    {
+        ArrayList<Integer> a = new ArrayList<Integer>();
+        for (int i = 2; i < Math.sqrt(num); i++)
+        {
+            if ((num/i) * i == num)
+            {
+                a.add(i);
+                a.add(num/i);
+                return a;
+            }
+        }
+        return null;
+    }
+
     public static void main(String[] args){
         long startTime = System.currentTimeMillis();
         PrintWriter writer = null;
@@ -66,8 +81,8 @@ public class SemiPrime{
         double count = 0;
         try
         {
-            writer = new PrintWriter("/Users/Sid/Desktop/semiprimes_test2.txt");
-            for(int i = 100000; i <= 110000; i++){
+            writer = new PrintWriter("semiprimes.txt");
+            for(int i = 100100; i <= 101000; i++){
                 if(isSemi(BigInteger.valueOf(i))){
 
                     ArrayList a = primeFactors(i);
